@@ -46,7 +46,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'worldline_django.wsgi.application'
+WSGI_APPLICATION = '    
 
 STATIC_URL = '/static/'
 
