@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worldline Payment Response</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    padding:40px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    overflow:hidden;
+}
+
+.header{
+    background:#0d6efd;
+    color:#fff;
+    padding:20px;
+    text-align:center;
+}
+
+.header h2{
+    font-size:30px;
+}
+
+.status{
+    margin:25px;
+    padding:15px;
+    border-radius:6px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.success{
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+}
+
+.failed{
+    background:#f8d7da;
+    color:#721c24;
+    border:1px solid #f5c6cb;
+}
+
+.warning{
+    background:#fff3cd;
+    color:#856404;
+    border:1px solid #ffeeba;
+}
+
+table{
+    width:95%;
+    margin:20px auto;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:12px;
+}
+
+table th{
+    width:35%;
+    background:#f2f2f2;
+    text-align:left;
+}
+
+.section-title{
+    width:95%;
+    margin:30px auto 10px;
+    color:#0d6efd;
+}
+
+textarea{
+    width:95%;
+    height:170px;
+    margin:0 auto 25px;
+    display:block;
+    padding:12px;
+    font-family:Consolas, monospace;
+    resize:none;
+}
+
+.home{
+    text-align:center;
+    margin:30px;
+}
+
+.home a{
+    text-decoration:none;
+    background:#0d6efd;
+    color:#fff;
+    padding:12px 25px;
+    border-radius:5px;
+}
+
+.home a:hover{
+    background:#084298;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h2>Worldline Payment Response</h2>
+</div>
+
+{% if status == "0300" %}
+
+<div class="status success">
+✅ Payment Successful
+</div>
+
+{% elif status %}
+
+<div class="status failed">
+❌ Payment Failed
+<br><br>
+{{ message }}
+</div>
+
+{% else %}
+
+<div class="status warning">
+⚠ No transaction details were returned by Worldline.
+</div>
+
+{% endif %}
+
+<table>
+
+<tr><th>Transaction Status</th><td>{{ status|default:"-" }}</td></tr>
+<tr><th>Transaction Message</th><td>{{ message|default:"-" }}</td></tr>
+<tr><th>Error Message</th><td>{{ error|default:"-" }}</td></tr>
+<tr><th>Client Transaction Ref</th><td>{{ clientTxnRef|default:"-" }}</td></tr>
+<tr><th>TPSL Bank Code</th><td>{{ bankCode|default:"-" }}</td></tr>
+<tr><th>TPSL Transaction ID</th><td>{{ tpslTxnId|default:"-" }}</td></tr>
+<tr><th>Amount</th><td>{{ amount|default:"-" }}</td></tr>
+<tr><th>Client Meta</th><td>{{ clientMeta|default:"-" }}</td></tr>
+<tr><th>Transaction Time</th><td>{{ txnTime|default:"-" }}</td></tr>
+<tr><th>Balance Amount</th><td>{{ balance|default:"-" }}</td></tr>
+
+{% if cardId %}
+<tr><th>Card ID</th><td>{{ cardId }}</td></tr>
+{% endif %}
+
+<tr><th>Alias Name</th><td>{{ alias|default:"-" }}</td></tr>
+<tr><th>Bank Transaction ID</th><td>{{ bankTxnId|default:"-" }}</td></tr>
+
+{% if mandate %}
+<tr><th>Mandate Registration No</th><td>{{ mandate }}</td></tr>
+{% endif %}
+
+<tr><th>Token</th><td>{{ token|default:"-" }}</td></tr>
+<tr><th>Hash</th><td style="word-break:break-all;">{{ hash|default:"-" }}</td></tr>
+
+</table>
+
+<h3 class="section-title">Raw Response</h3>
+
+<textarea readonly>{{ full_response }}</textarea>
+
+{% if response %}
+
+<h3 class="section-title">Dual Verification Result</h3>
+
+<table>
+
+<tr><th>Merchant Code</th><td>{{ response.merchantCode }}</td></tr>
+
+<tr><th>Merchant Transaction Identifier</th>
+<td>{{ response.merchantTransactionIdentifier }}</td></tr>
+
+<tr><th>Request Type</th>
+<td>{{ response.merchantTransactionRequestType }}</td></tr>
+
+<tr><th>Response Type</th>
+<td>{{ response.responseType }}</td></tr>
+
+<tr><th>Payment Date</th>
+<td>{{ response.paymentMethod.paymentTransaction.dateTime }}</td></tr>
+
+<tr><th>Amount</th>
+<td>{{ response.paymentMethod.paymentTransaction.amount }}</td></tr>
+
+<tr><th>Payment Identifier</th>
+<td>{{ response.paymentMethod.paymentTransaction.identifier }}</td></tr>
+
+<tr><th>Status Code</th>
+<td>{{ response.paymentMethod.paymentTransaction.statusCode }}</td></tr>
+
+<tr><th>Status Message</th>
+<td>{{ response.paymentMethod.paymentTransaction.statusMessage }}</td></tr>
+
+</table>
+
+{% endif %}
+
+<div class="home">
+<a href="/payment">← Make Another Payment</a>
+</div>
+
+</div>
+
+</body>
+</html>

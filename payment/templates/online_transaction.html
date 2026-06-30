@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Transaction</title>
+
+    <script src="https://www.paynimo.com/paynimocheckout/client/lib/jquery.min.js"></script>
+    <script src="https://www.paynimo.com/Paynimocheckout/server/lib/checkout.js"></script>
+
+    <script src="{% static 'online_transaction.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            if ($("#siDetailsAtMerchantEndCond").val() === "true") {
+
+                var amount = "{{ config_data.amountType|default:'' }}";
+                $("#amountType").val(amount);
+
+                var freq = "{{ config_data.frequency|default:'' }}";
+                $("#frequency").val(freq);
+
+                $("#debitStartDate").val("{{ start_date|default:'' }}");
+                $("#debitEndDate").val("{{ end_date|default:'' }}");
+
+                $("#amount").on("change", function () {
+                    $("#maxAmount").val(Number($(this).val()) * 2);
+                });
+            }
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Online Transaction</h1>
+
+  <form method="POST" id="form">
+
+    {% csrf_token %}
+
+    <!-- Hidden Fields -->
+    {{ form.merchantCode }}
+    {{ form.txn_id }}
+    {{ form.merchantSchemeCode }}
+    {{ form.currency }}
+    {{ form.SALT }}
+    {{ form.returnUrl }}
+
+    <div>
+        <label>Full Name</label><br>
+        {{ form.customerName }}
+    </div>
+
+    <br>
+
+    <div>
+        <label>Email Address</label><br>
+        {{ form.email }}
+    </div>
+
+    <br>
+
+    <div>
+        <label>Mobile Number</label><br>
+        {{ form.mobNo }}
+    </div>
+
+    <br>
+
+    <div>
+        <label>Amount</label><br>
+        {{ form.amount }}
+    </div>
+
+    <br>
+
+    <input type="submit" id="submit" value="Pay Now">
+
+    <div id="worldline_embeded_popup"></div>
+
+</form>
+
+</body>
+</html>

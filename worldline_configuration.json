@@ -1,0 +1,40 @@
+{
+    "csrf_token": "ImQ1ZThkODVmODYxM2JjNDM5ZGQwNzYzMjBjOWUzMzYxYTcwMWY1MmMi.YV1enQ.quA1egGKK68eE_e0T1AmxYo1tjA",
+
+   
+
+    "merchantCode": "T891293",
+    "merchantSchemeCode": "FIRST",
+    "SALT": "4096964465RLFSUF",
+    "currency": "INR",
+    "typeOfPayment": "TEST",
+
+    "primaryColor": "#808080",
+    "secondaryColor": "#000000",
+    "buttonColor1": "#1969bb",
+    "buttonColor2": "#FFFFFF",
+    "logoURL": "https://www.paynimo.com/CompanyDocs/company-logo-md.png",
+    "enableExpressPay": "false",
+    "separateCardMode": "false",
+    "enableNewWindowFlow": "true",
+    "merchantMessage": "",
+    "disclaimerMessage": "",
+    "paymentMode": "all",
+    "paymentModeOrder": "cards,netBanking,imps,wallets,cashCards,UPI,MVISA,debitPin,NEFTRTGS",
+    "enableInstrumentDeRegistration": "false",
+    "transactionType": "SALE",
+    "hideSavedInstruments": "false",
+    "saveInstrument": "false",
+    "displayTransactionMessageOnPopup": "false",
+    "embedPaymentGatewayOnPage": "false",
+    "enableSI": "false",
+    "hideSIDetails": "false",
+    "hideSIConfirmation": "false",
+    "expandSIDetails": "false",
+    "enableDebitDay": "false",
+    "showSIResponseMsg": "false",
+    "showSIConfirmation": "false",
+    "enableTxnForNonSICards": "false",
+    "showAllModesWithSI": "false",
+    "submit": "Save"
+}
